@@ -8,7 +8,7 @@ import com.ctech.rbacsystem.service.RolesService;
 import com.ctech.rbacsystem.service.UsersService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,8 +26,8 @@ public class RbacController {
   private final RolesService rolesService;
 
   @PostMapping("/user")
-  public UsersDTO addUser(@RequestBody UsersDTO usersDTO) {
-    return usersService.saveUser(usersDTO);
+  public ResponseEntity<Users> addUser(@RequestBody UsersDTO usersDTO) {
+    return ResponseEntity.ok(usersService.saveUser(usersDTO));
   }
 
   @GetMapping("/user")
@@ -36,13 +36,13 @@ public class RbacController {
   }
 
   @DeleteMapping("/user/delete/{id}")
-  public String deleteUser(@PathVariable(value = "id") ObjectId uid) {
+  public String deleteUser(@PathVariable(value = "id") String uid) {
     usersService.deleteById(uid);
     return "User Delete successfully";
   }
 
   @PostMapping("/role")
-  public RolesDTO addRole(@RequestBody RolesDTO rolesDTO) {
+  public Roles addRole(@RequestBody RolesDTO rolesDTO) {
     return rolesService.saveRole(rolesDTO);
   }
 
@@ -51,8 +51,9 @@ public class RbacController {
     return rolesService.getRoles();
 
   }
+
   @DeleteMapping("/role/delete/{id}")
-  public String deleteRole(@PathVariable (value = "id") ObjectId rid){
+  public String deleteRole(@PathVariable(value = "id") String rid) {
     rolesService.deleteRoleById(rid);
     return "Role Delete Successfully";
   }
