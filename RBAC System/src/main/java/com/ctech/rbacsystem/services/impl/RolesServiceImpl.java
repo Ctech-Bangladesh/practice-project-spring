@@ -1,9 +1,9 @@
-package com.ctech.rbacsystem.service.impl;
+package com.ctech.rbacsystem.services.impl;
 
-import com.ctech.rbacsystem.dto.RolesDTO;
-import com.ctech.rbacsystem.entity.Roles;
-import com.ctech.rbacsystem.repository.RolesRepository;
-import com.ctech.rbacsystem.service.RolesService;
+import com.ctech.rbacsystem.dtos.RolesDTO;
+import com.ctech.rbacsystem.entities.Role;
+import com.ctech.rbacsystem.repositories.RolesRepository;
+import com.ctech.rbacsystem.services.RolesService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -16,14 +16,14 @@ public class RolesServiceImpl implements RolesService {
   private final RolesRepository rolesRepository;
 
   @Override
-  public Roles saveRole(RolesDTO rolesDTO) {
-    Roles roles = new Roles();
+  public Role saveRole(RolesDTO rolesDTO) {
+    Role roles = new Role();
     BeanUtils.copyProperties(rolesDTO, roles);
     return rolesRepository.save(roles);
   }
 
   @Override
-  public List<Roles> getRoles() {
+  public List<Role> getRoles() {
     return rolesRepository.findAll();
   }
 

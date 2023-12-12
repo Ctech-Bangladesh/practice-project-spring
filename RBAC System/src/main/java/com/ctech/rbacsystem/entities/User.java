@@ -1,15 +1,17 @@
-package com.ctech.rbacsystem.entity;
+package com.ctech.rbacsystem.entities;
 
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
-@Data
+@Setter
+@Getter
 @Document(collection = "user")
-public class Users {
+public class User extends BaseModel {
 
   @Id
   private String uid;
@@ -17,7 +19,7 @@ public class Users {
   private boolean approved;
   private boolean status;
   @DBRef
-  private Roles roles;
+  private Role roles;
 
 
 }

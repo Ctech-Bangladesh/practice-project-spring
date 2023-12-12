@@ -1,11 +1,11 @@
-package com.ctech.rbacsystem.controller;
+package com.ctech.rbacsystem.controllers;
 
-import com.ctech.rbacsystem.dto.RolesDTO;
-import com.ctech.rbacsystem.dto.UsersDTO;
-import com.ctech.rbacsystem.entity.Roles;
-import com.ctech.rbacsystem.entity.Users;
-import com.ctech.rbacsystem.service.RolesService;
-import com.ctech.rbacsystem.service.UsersService;
+import com.ctech.rbacsystem.dtos.RolesDTO;
+import com.ctech.rbacsystem.dtos.UsersDTO;
+import com.ctech.rbacsystem.entities.Role;
+import com.ctech.rbacsystem.entities.User;
+import com.ctech.rbacsystem.services.RolesService;
+import com.ctech.rbacsystem.services.UsersService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,13 +26,13 @@ public class RbacController {
   private final RolesService rolesService;
 
   @PostMapping("/user")
-  public ResponseEntity<Users> addUser(@RequestBody UsersDTO usersDTO) {
+  public ResponseEntity<User> addUser(@RequestBody UsersDTO usersDTO) {
     return ResponseEntity.ok(usersService.saveUser(usersDTO));
   }
 
   @GetMapping("/user")
-  public List<Users> showEmployee() {
-    return usersService.getUsers();
+  public ResponseEntity<List<User>> showEmployee() {
+    return ResponseEntity.ok(usersService.getUsers());
   }
 
   @DeleteMapping("/user/delete/{id}")
@@ -42,13 +42,13 @@ public class RbacController {
   }
 
   @PostMapping("/role")
-  public Roles addRole(@RequestBody RolesDTO rolesDTO) {
-    return rolesService.saveRole(rolesDTO);
+  public ResponseEntity<Role> addRole(@RequestBody RolesDTO rolesDTO) {
+    return ResponseEntity.ok(rolesService.saveRole(rolesDTO));
   }
 
   @GetMapping("/role")
-  public List<Roles> showRoles() {
-    return rolesService.getRoles();
+  public ResponseEntity<List<Role>> showRoles() {
+    return ResponseEntity.ok(rolesService.getRoles());
 
   }
 

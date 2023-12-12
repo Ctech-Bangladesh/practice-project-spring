@@ -1,11 +1,12 @@
-package com.ctech.rbacsystem.service.impl;
+package com.ctech.rbacsystem.services.impl;
 
-import com.ctech.rbacsystem.dto.UsersDTO;
-import com.ctech.rbacsystem.entity.Roles;
-import com.ctech.rbacsystem.entity.Users;
-import com.ctech.rbacsystem.repository.RolesRepository;
-import com.ctech.rbacsystem.repository.UsersRepository;
-import com.ctech.rbacsystem.service.UsersService;
+import com.ctech.rbacsystem.dtos.UsersDTO;
+import com.ctech.rbacsystem.entities.Role;
+import com.ctech.rbacsystem.entities.User;
+import com.ctech.rbacsystem.exceptions.EntityNotFoundException;
+import com.ctech.rbacsystem.repositories.RolesRepository;
+import com.ctech.rbacsystem.repositories.UsersRepository;
+import com.ctech.rbacsystem.services.UsersService;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -20,19 +21,19 @@ public class UsersServiceImpl implements UsersService {
   private final RolesRepository rolesRepository;
 
   @Override
-  public Users saveUser(UsersDTO usersDTO) {
-    Optional<Roles> roles = rolesRepository.findById(usersDTO.getRoleId());
+  public User saveUser(UsersDTO usersDTO) {
+    Optional<Role> roles = rolesRepository.findById(usersDTO.getRoleId());
     if (!roles.isPresent()) {
-      throw new RuntimeException("Not Fund");
+      throw new EntityNotFoundException("Role Not Found");
     }
-    Users userToCreate = new Users();
+    User userToCreate = new User();
     BeanUtils.copyProperties(usersDTO, userToCreate);
     userToCreate.setRoles(roles.get());
     return usersRepository.save(userToCreate);
   }
 
   @Override
-  public List<Users> getUsers() {
+  public List<User> getUsers() {
     return usersRepository.findAll();
   }
 

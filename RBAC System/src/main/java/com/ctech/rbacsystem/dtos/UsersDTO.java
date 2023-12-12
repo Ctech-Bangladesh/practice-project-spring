@@ -1,9 +1,10 @@
-package com.ctech.rbacsystem.dto;
+package com.ctech.rbacsystem.dtos;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-
+@Setter
+@Getter
 public class UsersDTO {
 
   private String name;
